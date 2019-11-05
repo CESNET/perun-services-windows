@@ -1,4 +1,4 @@
-<#
+﻿<#
 .SYNOPSIS
 Connector for Perun IdM.
 
@@ -19,6 +19,8 @@ command="& c:\scripts\perun\perun_connector.ps1 $input; exit $LASTEXITCODE" ssh-
 
 .NOTES
 2019/04/15
+
+Uses 7Zip4PowerShell from https://github.com/thoemmi/7Zip4Powershell
 
 .LICENSE
 Copyright (C) {2019} {David Štencel https://www.muni.cz/lide/433479-david-stencel}
