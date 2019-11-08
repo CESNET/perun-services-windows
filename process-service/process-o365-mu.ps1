@@ -304,7 +304,7 @@ try {
     # $EXTRACT_DIR_PATH
     #$EXTRACT_DIR_PATH = 'C:\Scripts\perun\debug'
     
-    $SERVICE_NAME = 'o365_mu'
+    $SERVICE_NAME = 'o365-mu'
 
     $script:COUNTER_USERS_UPDATED = 0
     $script:COUNTER_USERS_FAILED = 0
