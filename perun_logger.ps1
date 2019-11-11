@@ -116,17 +116,19 @@ function Write-PerunLog {
 
         switch ($global:LOG_MODE) {
             'CSV' { $logObject = "$timestamp|$LogLevel|$PID|$sourceScriptName|$sourceScriptLine|$LogMessage|$LogSufix"; break }
-            'JSON' { }
-            Default { 
+            'JSON' {
                 $logObject = @{
                     'timestamp'        = $timestamp; 
-                    'level'            = $LogLevel; 
+                    'level'            = $LogLevel;
+                    'host'             = $env:COMPUTERNAME;
                     'pid'              = $PID; 
                     'sourceScriptName' = $sourceScriptName; 
                     'sourceScriptLine' = $sourceScriptLine; 
+                    'guid'             = $global:Guid;
+                    'objectID'         = $global:ProcessedObjectID;
                     'message'          = $LogMessage; 
                     'suffix'           = $LogSufix 
-                } | ConvertTo-Json -Compress
+                } | ConvertTo-Json -Compress 
             }
         }
         
