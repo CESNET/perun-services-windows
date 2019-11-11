@@ -58,6 +58,7 @@ function Write-PerunLog {
         # LOG_DIR_PATH
         # LOG_FILE_PATH
         # LOG_LEVEL
+        # LOG_MODE
 
         $global:LogLevelSwitch = $LOG_LEVEL
 
@@ -96,7 +97,7 @@ function Write-PerunLog {
 
         #------- Write log    
 
-        $currentDateString = $(Get-Date -format 'yyyy-MM-ddTHH:mm:ss.ffffffZ')
+        $timestamp = $(Get-Date -format 'yyyy-MM-ddTHH:mm:ss.ffffffZ')
 	
         $LogMessage = $LogMessage -replace [environment]::NewLine, '' -replace '  ', ''
 
@@ -111,8 +112,25 @@ function Write-PerunLog {
             Write-PerunLog -LogLevel $logLevelDebug -LogMessage "Create new log file, powershell process id $PID"
         }
     
-        $global:logFileStream.WriteLine("$currentDateString|$LogLevel|$PID|$sourceScriptName|$sourceScriptLine||||$LogMessage|$LogSufix")
+        $logObject = ''
 
+        switch ($global:LOG_MODE) {
+            'CSV' { $logObject = "$timestamp|$LogLevel|$PID|$sourceScriptName|$sourceScriptLine|$LogMessage|$LogSufix"; break }
+            'JSON' { }
+            Default { 
+                $logObject = @{
+                    'timestamp'        = $timestamp; 
+                    'level'            = $LogLevel; 
+                    'pid'              = $PID; 
+                    'sourceScriptName' = $sourceScriptName; 
+                    'sourceScriptLine' = $sourceScriptLine; 
+                    'message'          = $LogMessage; 
+                    'suffix'           = $LogSufix 
+                } | ConvertTo-Json -Compress
+            }
+        }
+        
+        $global:logFileStream.WriteLine($logObject)
     } catch {
         [console]::Error.WriteLine("$(Get-Date -format 'yyyy-MM-ddTHH-mm')|$PSCommandPath|ERROR|$_")
     }

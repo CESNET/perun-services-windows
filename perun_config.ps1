@@ -35,6 +35,7 @@ $SCRIPT_VERSION = '3.0.0'
 $global:LOG_DIR_PATH = "$PSScriptRoot\Logs"
 $global:LOG_FILE_PATH = "$LOG_DIR_PATH\$(Get-Date -f 'yyyyMMddHHmmss')_$SERVICE_NAME-$PID.log"
 $global:LOG_LEVEL = 'DEBUG'
+$global:LOG_MODE = 'JSON' #'CSV'
 # Log retention
 $LOG_FILE_ARCHIVE = 30 # days
 $LOG_FILE_RETENTION = 6 # months
