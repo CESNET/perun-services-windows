@@ -10,7 +10,7 @@ Windows Connector for Perun uses native OpenSSH support on Windows OS [since Win
 ```powershell
 New-ItemProperty -Path "HKLM:\SOFTWARE\OpenSSH" -Name DefaultShell -Value "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe" -PropertyType String -Force
 ```
-3. Create an account for Perun on the target machine (or create as a domain account). It's recomended to load user profile using following command:
+3. Create an account for Perun (<PERUN_USER>) on the target machine (or create as a domain account). It's recomended to load user profile using following command:
 ```
 Start-Process cmd /c -Credential $credentials -ErrorAction SilentlyContinue -LoadUserProfile
 ```
@@ -27,12 +27,12 @@ AllowUsers username
 PasswordAuthentication no
 ```
 6. Copy the public key for Perun to following files:
-  - `C:\Users\perun\.ssh\authorized_keys` (note that only perun user have rights for `.ssh` folder and files see the [official documentation of deploying the keys](https://docs.microsoft.com/en-us/windows-server/administration/openssh/openssh_keymanagement#deploying-the-public-key))
+  - `C:\Users\<PERUN_USER>\.ssh\authorized_keys` (note that only perun user have rights for `.ssh` folder and files see the [official documentation of deploying the keys](https://docs.microsoft.com/en-us/windows-server/administration/openssh/openssh_keymanagement#deploying-the-public-key))
   - `C:\ProgramData\ssh\administrators_authorized_keys`     
   
 Both files should look like:
 ```
-command="& c:\scripts\perun\perun_connector.ps1 $input; exit $LASTEXITCODE" ssh-rsa publickey perun@idm.ics.muni.cz
+command="& c:\<INSTALLATION_FOLDER>\perun\perun_connector.ps1 $input; exit $LASTEXITCODE" ssh-rsa publickey perun@idm.ics.muni.cz
 ```
 
 7. Restart sshd service
