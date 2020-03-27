@@ -4,6 +4,6 @@ trigger_compile:
   before_script:
     - apk add --update curl && rm -rf /var/cache/apk/*
   script:
-    - "curl -X POST -F token=$PI_TOKEN -F ref=$PI_BRANCH https://gitlab.ics.muni.cz/api/v4/projects/1791/trigger/pipeline"
+    - "curl -X POST -F token=$PI_TOKEN -F ref=$PI_BRANCH $PI_URL"
   only:
     - master
