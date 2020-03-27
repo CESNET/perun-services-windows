@@ -85,7 +85,7 @@ try {
     . "$PSScriptRoot\perun_config.ps1" # settings variables
     . "$PSScriptRoot\perun_logger.ps1" # logging function
 
-    Import-Module "$PSScriptRoot\7Zip4Powershell\1.9.0\7Zip4PowerShell.psd1" # for TAR support
+    Import-Module "$PSScriptRoot\libs\7Zip4Powershell\1.9.0\7Zip4PowerShell.psd1" # for TAR support
     Import-Module -Name Microsoft.PowerShell.Archive # for simple log archiving
 
     Write-PerunLog -LogLevel 'INFO' -LogMessage "$SERVICE_NAME has started."
