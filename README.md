@@ -1,7 +1,7 @@
 <a href="https://perun.cesnet.cz/"><img style="float: left; position: relative;" src="https://raw.githubusercontent.com/CESNET/perun/master/perun-web-gui/src/main/webapp/img/logo.png"></a>
 ## Perun services for Windows ##
 
-This repository contains scripts, which are used by [Perun](https://perun.cesnet.cz/web/) for provisioning and deprovisioning users to your services running Windows (managing access rights to them). Perun can manage any kind of a service, which has either accessible API or has accessible config files. We will be happy to help you with writing your own scripts for managing your service.
+This repository contains scripts, which are used by [Perun](https://perun.cesnet.cz/web/) for provisioning and de-provisioning users to your services running Windows (managing access rights to them). Perun can manage any service, which has either accessible API or has accessible config files. We will be happy to help you with writing your own scripts for managing your service.
 
 ### Related projects ###
 
@@ -11,27 +11,27 @@ This repository contains scripts, which are used by [Perun](https://perun.cesnet
 
 ### Sources structure ###
 
-* **libs/** - various modules used in connector, for example 7zip4Powershell to process tar files.
-* **conf/** - configuration files, here you can define white/black lists of services, temp files location, logs location etc.
-* **services/** - These Powershell scripts process new received files on destination machine and perform change itself.
-* **perun_connector.ps1** - Main Powershell script, hadnling all errors and call service process scripts.
+* **libs/** - various modules used in the connector, for example, 7zip4Powershell to process tar files.
+* **conf/** - configuration files, here you can define white/blacklists of services, temp files location, logs location, etc.
+* **services/** - These Powershell scripts process newly received files on the destination machine and perform change itself.
+* **perun_connector.ps1** - Main Powershell script, handling all errors and calls service process scripts.
 
 ## Requirements 
 - at least version Windows Server 2019 or Windows 10 1809   
 Windows Connector for Perun uses native OpenSSH support on Windows OS [since Windows Server 2019, Windows 10 1809](https://docs.microsoft.com/en-us/windows-server/administration/openssh/openssh_install_firstuse).
 
-## Instalation
+## Installation
 1. Initial setup of OpenSSH   
-[Please follow official instalation documentation from Microsoft](https://docs.microsoft.com/en-us/windows-server/administration/openssh/openssh_install_firstuse)
+[Please follow official installation documentation from Microsoft](https://docs.microsoft.com/en-us/windows-server/administration/openssh/openssh_install_firstuse)
 2. Set up the PowerShell as the default shell for SSH:   
 ```powershell
 New-ItemProperty -Path "HKLM:\SOFTWARE\OpenSSH" -Name DefaultShell -Value "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe" -PropertyType String -Force
 ```
-3. Create an account for Perun (<PERUN_USER>) on the target machine (or create as a domain account). It's recomended to load user profile using following command:
+3. Create an account for Perun (<PERUN_USER>) on the target machine (or create as a domain account). It's recommended to load user profile using the following command:
 ```
 Start-Process cmd /c -Credential $credentials -ErrorAction SilentlyContinue -LoadUserProfile
 ```
-4. Allow SSH only for the specific account by adding the following line to end of the `%programdata%\ssh\sshd_config` file. [Official documentation on allowing or denying accounts](https://docs.microsoft.com/en-us/windows-server/administration/openssh/openssh_server_configuration#allowgroups-allowusers-denygroups-denyusers)
+4. Allow SSH only for the specific account by adding the following line to the end of the `%programdata%\ssh\sshd_config` file. [Official documentation on allowing or denying accounts](https://docs.microsoft.com/en-us/windows-server/administration/openssh/openssh_server_configuration#allowgroups-allowusers-denygroups-denyusers)
 ```
 # For local account
 AllowUsers username
