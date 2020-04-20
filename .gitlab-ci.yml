@@ -3,50 +3,41 @@ stages:
   - package
   - deploy
 
-test_1:
+run_pester_tests:
   before_script:
     - Import-Module "Pester" -Force
     - Get-Module Pester | select name,version
   stage: test
   script:
-    - exit (Invoke-Pester .\tests\Archives\ -Passthru).FailedCount
+    - exit (Invoke-Pester . -Passthru).FailedCount
   tags:
    - windows
 
-test_2:
-  before_script:
-    - Import-Module "Pester" -Force
-    - Get-Module Pester | select name,version
-  stage: test
-  script:
-    - exit (Invoke-Pester .\tests\InputChecks -Passthru).FailedCount
-  tags:
-   - windows
+#test_2:
+#  before_script:
+#    - Import-Module "Pester" -Force
+#    - Get-Module Pester | select name,version
+#  stage: test
+#   script:
+#     - exit (Invoke-Pester .\tests\InputChecks -Passthru).FailedCount
+#   tags:
+#    - windows
 
-test_3:
-  before_script:
-    - Import-Module "Pester" -Force
-    - Get-Module Pester | select name,version
-  stage: test
-  script:
-    - exit (Invoke-Pester .\tests\ExecutingScripts -Passthru).FailedCount
-  tags:
-   - windows
+# test_3:
+#   before_script:
+#     - Import-Module "Pester" -Force
+#     - Get-Module Pester | select name,version
+#   stage: test
+#   script:
+#     - exit (Invoke-Pester .\tests\ExecutingScripts -Passthru).FailedCount
+#   tags:
+#    - windows
 
-packageing:
+create_installer:
   stage: package
-  needs: ["test_1"]
-  image: docker:stable
-  before_script:
-    - apk add --update curl && rm -rf /var/cache/apk/*
-  script:
-    - "curl -X POST -F token=$PI_TOKEN -F ref=$PI_BRANCH $PI_URL"
+  needs: ["run_pester_tests"]
+  trigger:
+    project: perun-windows/services-installer
+    strategy: depend
   only:
     - master
-
-deployment:
-  stage: deploy
-  script:
-    - Write-Host 'to be implemented'
-  tags:
-   - windows
