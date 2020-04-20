@@ -31,18 +31,18 @@ USA
 # Connector name
 $SERVICE_NAME = 'perun_connector'
 # Perun.Major.Minor data/script version
-# Test
 $SCRIPT_VERSION = '3.0.0'
-$global:LOG_DIR_PATH = "$PSScriptRoot\Logs"
+$global:LOG_DIR_PATH = "$PSScriptRoot\..\Logs"
 $global:LOG_FILE_PATH = "$LOG_DIR_PATH\$(Get-Date -f 'yyyyMMddHHmmss')_$SERVICE_NAME-$PID.log"
 $global:LOG_LEVEL = 'DEBUG'
 $global:LOG_MODE = 'JSON' #'CSV'
 # Log retention
 $LOG_FILE_ARCHIVE = 30 # days
 $LOG_FILE_RETENTION = 6 # months
-$global:TEMP_DIR_PATH = "$PSScriptRoot\Tmp_$(Get-Date -f 'yyyyMMddHHmmss')_$SERVICE_NAME-$PID"
+$global:TEMP_DIR_PATH = "$PSScriptRoot\..\Tmp_$(Get-Date -f 'yyyyMMddHHmmss')_$SERVICE_NAME-$PID"
 $INPUT_ARCH_FILE_NAME = 'perun-input.tar'
 $global:EXTRACT_DIR_PATH = "$TEMP_DIR_PATH\extracted"
+$global:PROCESS_SCRIPTS_DIR = "$PSScriptRoot\..\services"
 
 # Explicitly disable services
 $SERVICE_BLACKLIST = @()	# syntax: @('item1','item2','item3')

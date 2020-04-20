@@ -137,3 +137,26 @@ function Write-PerunLog {
         [console]::Error.WriteLine("$(Get-Date -format 'yyyy-MM-ddTHH-mm')|$PSCommandPath|ERROR|$_")
     }
 }
+
+function Start-PerunLogArchivation {
+
+    # Determine the date of which files older than specific period will be archived
+    $dateToArchive = (Get-Date).AddDays(-$LOG_FILE_ARCHIVE)
+    $filesToArchive = (Get-ChildItem $Global:LOG_DIR_PATH -Include "*.log" -Recurse | Where-Object { $_.LastWriteTime -le $dateToArchive }).FullName
+
+    if ($null -ne $filesToArchive) {
+        Compress-Archive -Path $filesToArchive -CompressionLevel Optimal -DestinationPath "$LOG_DIR_PATH\$(Get-Date $dateToArchive -f 'yyyyMMddHHmmss').zip" -ErrorAction Stop
+        $filesToArchive | Remove-Item -Force -Confirm:$false
+    }
+}
+
+function Start-PerunLogRotation {
+    # Determine the date of which files older than specific period will be deleted
+    $dateToDelete = (Get-Date).AddMonths(-$LOG_FILE_RETENTION)
+    $filesToDelete = (Get-ChildItem $Global:LOG_DIR_PATH -Include "*.zip" -Recurse | Where-Object { $_.LastWriteTime -le $dateToDelete }).FullName
+
+    if ($null -ne $filesToDelete) {
+
+        $filesToDelete | Remove-Item -Force -Confirm:$false
+    }
+}
