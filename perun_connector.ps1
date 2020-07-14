@@ -53,16 +53,19 @@ $global:ProgressPreference = 'SilentlyContinue'
 
 
 #--------------------- Set environemt and variables
+# Installation path where the script resides
+$global:INSTALLATION_PATH = $PSScriptRoot
 
 try {
-  
-    Import-Module "$PSScriptRoot\libs\7Zip4Powershell\1.9.0\7Zip4PowerShell.psd1" # for TAR support
+    # Load config
+    . "$INSTALLATION_PATH\conf\perun_config.ps1" # settings variables
+
+    Import-Module "$INSTALLATION_PATH\libs\7Zip4Powershell\1.9.0\7Zip4PowerShell.psd1" # for TAR support
     Import-Module -Name Microsoft.PowerShell.Archive # for simple log archiving
 
-    . "$PSScriptRoot\conf\perun_config.ps1" # settings variables
-    . "$PSScriptRoot\libs\perun_logger.ps1" # logging function
-    . "$PSScriptRoot\libs\hooks.ps1" # hooks
-    . "$PSScriptRoot\libs\functions.ps1" # functions
+    . "$INSTALLATION_PATH\libs\perun_logger.ps1" # logging function
+    . "$INSTALLATION_PATH\libs\hooks.ps1" # hooks
+    . "$INSTALLATION_PATH\libs\functions.ps1" # functions
 
     Write-PerunLog -LogLevel 'INFO' -LogMessage "$SERVICE_NAME has started."
     [Environment]::CurrentDirectory = (Get-Location -PSProvider FileSystem).ProviderPath

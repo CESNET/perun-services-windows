@@ -28,11 +28,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301
 USA
 #>
 
+# Fallback if path is not valid
+if ($null -eq $INSTALLATION_PATH){
+    $global:INSTALLATION_PATH = "C:\Program Files (x86)\PERUN Connector"
+}
+
 # Connector name
 $SERVICE_NAME = 'perun_connector'
 # Perun.Major.Minor data/script version
 $SCRIPT_VERSION = '3.0.0'
-$global:INSTALLATION_PATH = "C:\Program Files (x86)\PERUN Connector"
 $global:LOG_DIR_PATH = "$INSTALLATION_PATH\Logs"
 $global:LOG_FILE_PATH = "$LOG_DIR_PATH\$(Get-Date -f 'yyyyMMddHHmmss')_$SERVICE_NAME-$PID.log"
 $global:LOG_LEVEL = 'DEBUG'
