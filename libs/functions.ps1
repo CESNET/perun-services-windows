@@ -17,7 +17,7 @@ function Save-Input {
         [String] $Content
     )
     
-    Import-Module ".\libs\7Zip4Powershell\1.9.0\7Zip4PowerShell.psd1" # for TAR support
+    Import-Module "$INSTALLATION_PATH\libs\7Zip4Powershell\1.9.0\7Zip4PowerShell.psd1" -ErrorAction SilentlyContinue # for TAR support
     Write-PerunLog -LogLevel 'INFO' -LogMessage 'Saving the input file.'
     $byteArray = [System.Convert]::FromBase64String($Content)
     [Environment]::CurrentDirectory = (Get-Location -PSProvider FileSystem).ProviderPath
