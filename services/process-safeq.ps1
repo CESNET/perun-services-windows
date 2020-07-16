@@ -66,7 +66,7 @@ try {
 
     # Moving generated LDIF to hot folder.
     if ((Get-Content $actualContentPath | Measure-Object | Select-Object -ExpandProperty Count) -gt 0){
-        Move-Item -Path "$safeqDataFolder\*" -Destination "$safeqWatchdogFolder" -Filter "safeq.ldif" -Force
+        Move-Item -Path "$actualContentPath" -Destination "$safeqWatchdogFolder" -Force
     } else {
         #Write-PerunLog -LogLevel 'INFO' -LogMessage "Generated LDIF has no changes"
         Remove-Item "$safeqWatchdogFolder\$actualContent" -ErrorAction SilentlyContinue
