@@ -21,6 +21,18 @@ This repository contains scripts, which are used by [Perun](https://perun.cesnet
 Windows Connector for Perun uses native OpenSSH support on Windows OS [since Windows Server 2019, Windows 10 1809](https://docs.microsoft.com/en-us/windows-server/administration/openssh/openssh_install_firstuse).
 
 ## Installation
+1. Install this software to the `INSTALLATION_FOLDER`, expected: `C:\Program Files (x86)\PERUN Connector`, could be changed in the `.\conf\perun_config.ps1`. The folder should look like this:
+```
+dir 'C:\Program Files (x86)\PERUN Connector' | select name
+
+Name               
+----               
+conf               
+libs               
+Logs               
+services           
+perun_connector.ps1
+```
 1. Initial setup of OpenSSH   
 [Please follow official installation documentation from Microsoft](https://docs.microsoft.com/en-us/windows-server/administration/openssh/openssh_install_firstuse)
 2. Set up the PowerShell as the default shell for SSH:   

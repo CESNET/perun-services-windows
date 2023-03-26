@@ -52,7 +52,7 @@ $global:PROCESS_SCRIPTS_DIR = "$INSTALLATION_PATH\services"
 # Explicitly disable services
 $SERVICE_BLACKLIST = @()	# syntax: @('item1','item2','item3')
 # Enable services
-$SERVICE_WHITELIST = @() # syntax: @('item1','item2','item3')
+$SERVICE_WHITELIST = @() # syntax: @('safeq6','service-name','service-name-another')
 
 # Accept configuration only if sent to one of these hostnames
 # Prevents someone to configure perun to send malicious configuration via dns alias or ip address
