@@ -33,39 +33,38 @@ Logs
 services           
 perun_connector.ps1
 ```
-1. Initial setup of OpenSSH   
+2. Set folder 'PERUN Connector' sufficient access rights
+3. Inside `.\conf\perun_config.ps1` set variables SERVICE_WHITELIST and FACILITY_WHITELIST
+4. Initial setup of OpenSSH   
 [Please follow official installation documentation from Microsoft](https://docs.microsoft.com/en-us/windows-server/administration/openssh/openssh_install_firstuse)
-2. Set up the PowerShell as the default shell for SSH:   
+5. Set up the PowerShell as the default shell for SSH:   
 ```powershell
 New-ItemProperty -Path "HKLM:\SOFTWARE\OpenSSH" -Name DefaultShell -Value "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe" -PropertyType String -Force
 ```
-3. Create an account for Perun (<PERUN_USER>) on the target machine (or create as a domain account). It's recommended to load user profile using the following command:
+6. Create an account for Perun (<PERUN_USER>, usually named 'perun') on the target machine (or create as a domain account). It's recommended to load user profile using the following command:
 ```
 Start-Process cmd /c -Credential $credentials -ErrorAction SilentlyContinue -LoadUserProfile
 ```
-4. Allow SSH only for the specific account by adding the following line to the end of the `%programdata%\ssh\sshd_config` file. [Official documentation on allowing or denying accounts](https://docs.microsoft.com/en-us/windows-server/administration/openssh/openssh_server_configuration#allowgroups-allowusers-denygroups-denyusers)
+7. Allow SSH only for the specific account by adding the following line to the end of the `%programdata%\ssh\sshd_config` file. [Official documentation on allowing or denying accounts](https://docs.microsoft.com/en-us/windows-server/administration/openssh/openssh_server_configuration#allowgroups-allowusers-denygroups-denyusers)
 ```
 # For local account
 AllowUsers username
 ``` 
-5. Forbid `password authentication` by changing `sshd_config`.
+8. Forbid `password authentication` by changing `sshd_config`.
 ```
 # From
 #PasswordAuthentication yes
 # To
 PasswordAuthentication no
 ```
-6. Copy the public key for Perun to following files:
-  - `C:\Users\<PERUN_USER>\.ssh\authorized_keys` (note that only perun user have rights for `.ssh` folder and files see the [official documentation of deploying the keys](https://docs.microsoft.com/en-us/windows-server/administration/openssh/openssh_keymanagement#deploying-the-public-key))
-  - `C:\ProgramData\ssh\administrators_authorized_keys`     
-  
-Both files should look like:
+9. Edit files `C:\Users\<PERUN_USER>\.ssh\authorized_keys` and `C:\ProgramData\ssh\administrators_authorized_keys` so they both contain following line:
 ```
 command="& c:\<INSTALLATION_FOLDER>\perun\perun_connector.ps1 $input; exit $LASTEXITCODE" ssh-rsa publickey perun@idm.ics.muni.cz
 ```
+  - Note: () may need to be escaped using ' '
 
-7. Restart sshd service
+10. Restart sshd service
 ```
 Restart-Service sshd
 ```
-8. Test Connection
+11. Test Connection
