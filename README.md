@@ -21,7 +21,7 @@ This repository contains scripts, which are used by [Perun](https://perun.cesnet
 Windows Connector for Perun uses native OpenSSH support on Windows OS [since Windows Server 2019, Windows 10 1809](https://docs.microsoft.com/en-us/windows-server/administration/openssh/openssh_install_firstuse).
 
 ## Installation
-1. Install this software to the `INSTALLATION_FOLDER`, expected: `C:\Program Files (x86)\PERUN Connector`, could be changed in the `.\conf\perun_config.ps1`. The folder should look like this:
+1. Copy this software to the `INSTALLATION_FOLDER`, expected: `C:\Program Files (x86)\PERUN Connector`, could be changed in the `.\conf\perun_config.ps1`. The folder should look like this:
 ```
 dir 'C:\Program Files (x86)\PERUN Connector' | select name
 
@@ -48,7 +48,7 @@ Start-Process cmd /c -Credential $credentials -ErrorAction SilentlyContinue -Loa
 7. Allow SSH only for the specific account by adding the following line to the end of the `%programdata%\ssh\sshd_config` file. [Official documentation on allowing or denying accounts](https://docs.microsoft.com/en-us/windows-server/administration/openssh/openssh_server_configuration#allowgroups-allowusers-denygroups-denyusers)
 ```
 # For local account
-AllowUsers username
+AllowUsers <PERUN_USER>
 ``` 
 8. Forbid `password authentication` by changing `sshd_config`.
 ```
@@ -59,7 +59,7 @@ PasswordAuthentication no
 ```
 9. Edit files `C:\Users\<PERUN_USER>\.ssh\authorized_keys` and `C:\ProgramData\ssh\administrators_authorized_keys` so they both contain following line:
 ```
-command="& c:\<INSTALLATION_FOLDER>\perun\perun_connector.ps1 $input; exit $LASTEXITCODE" ssh-rsa publickey perun@idm.ics.muni.cz
+command="& c:\<INSTALLATION_FOLDER>\perun\perun_connector.ps1 $input; exit $LASTEXITCODE" ssh-rsa <PUBLIC_KEY> perun@idm.ics.muni.cz
 ```
   - Note: () may need to be escaped using ' '
 
