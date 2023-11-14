@@ -3,6 +3,7 @@ run_pester_tests:
   stage: test
   script:
     - pwsh -Command Install-Module -Name Pester -Force
+    - pwsh -Command Install-Module -Name 7Zip4PowerShell -Force
     - pwsh -Command Import-Module "Pester" -Force
     - pwsh -Command Invoke-Pester -CI
   coverage: /Covered (\d+\.\d+%)/
