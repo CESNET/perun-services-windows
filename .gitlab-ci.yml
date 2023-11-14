@@ -4,7 +4,7 @@ run_pester_tests:
   script:
     - pwsh -Command Install-Module -Name Pester -Force
     - pwsh -Command Import-Module "Pester" -Force
-    - pwsh -Command Invoke-Pester . -CI -CodeCoverage -CodeCoverageOutputFile coverage.xml
+    - pwsh -Command Invoke-Pester . -CI -CodeCoverageOutputFile coverage.xml
   coverage: /Covered (\d+\.\d+%)/
   artifacts:
     reports:
