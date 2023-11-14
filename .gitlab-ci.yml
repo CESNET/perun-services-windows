@@ -4,7 +4,13 @@ run_pester_tests:
   script:
     - pwsh -Command Install-Module -Name Pester -Force
     - pwsh -Command Import-Module "Pester" -Force
-    - pwsh -Command exit (pwsh -Command Invoke-Pester . -Passthru).FailedCount
+    - pwsh -Command Invoke-Pester . -CI -CodeCoverage -CodeCoverageOutputFile coverage.xml
+  coverage: /Covered (\d+\.\d+%)/
+  artifacts:
+    reports:
+      coverage_report:
+        coverage_format: cobertura
+        path: coverage.xml
   variables:
     POWERSHELL_TELEMETRY_OPTOUT: 1
 
