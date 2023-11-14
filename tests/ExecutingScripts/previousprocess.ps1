@@ -1,3 +1,4 @@
+. '.\conf\test_config.ps1'
 . '.\conf\perun_config.ps1'
 . '.\libs\functions.ps1'
 . '.\libs\perun_logger.ps1'

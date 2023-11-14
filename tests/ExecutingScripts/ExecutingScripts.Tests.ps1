@@ -1,3 +1,4 @@
+. ".\conf\test_config.ps1" # test settings variables
 . ".\conf\perun_config.ps1" # settings variables
 . ".\libs\functions.ps1" # functions
 . ".\libs\perun_logger.ps1" # logging function
