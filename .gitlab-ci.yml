@@ -5,6 +5,7 @@ run_pester_tests:
     - pwsh -Command Install-Module -Name Pester -Force
     - pwsh -Command Install-Module -Name 7Zip4PowerShell -Force
     - pwsh -Command Import-Module "Pester" -Force
+    - pwsh -Command Import-Module "7Zip4PowerShell" -Force
     - pwsh -Command Invoke-Pester -CI
   coverage: /Covered (\d+\.\d+%)/
   variables:
