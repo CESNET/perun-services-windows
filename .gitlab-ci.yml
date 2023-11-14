@@ -2,9 +2,7 @@ run_pester_tests:
   image: mcr.microsoft.com/powershell:lts-debian-11
   stage: test
   script:
-    - Import-Module "Pester" -Force
-    - Get-Module Pester | select name,version
-    - exit (Invoke-Pester . -Passthru).FailedCount
+    - pwsh run_pester_tests.ps1
   variables:
     POWERSHELL_TELEMETRY_OPTOUT: 1
 
