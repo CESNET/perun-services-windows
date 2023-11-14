@@ -1,17 +1,11 @@
-stages:
-  - test
-  - package
-  - deploy
-
 run_pester_tests:
+  image: $CI_DEPENDENCY_PROXY_DIRECT_GROUP_IMAGE_PREFIX/mcr.microsoft.com/powershell:lts-debian-11
   before_script:
     - Import-Module "Pester" -Force
     - Get-Module Pester | select name,version
   stage: test
   script:
     - exit (Invoke-Pester . -Passthru).FailedCount
-  tags:
-   - windows
 
 #test_2:
 #  before_script:
@@ -33,11 +27,11 @@ run_pester_tests:
 #   tags:
 #    - windows
 
-create_installer:
-  stage: package
-  needs: ["run_pester_tests"]
-  trigger:
-    project: perun-windows/services-installer
-    strategy: depend
-  only:
-    - master
+#create_installer:
+#  stage: deploy
+#  needs: ["run_pester_tests"]
+#  trigger:
+#    project: perun-windows/services-installer
+#    strategy: depend
+#  only:
+#    - master
