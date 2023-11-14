@@ -1,43 +1,24 @@
-stages:
-  - test
-  - package
-  - deploy
-
-run_pester_tests:
-  before_script:
-    - Import-Module "Pester" -Force
-    - Get-Module Pester | select name,version
-  stage: test
-  script:
-    - exit (Invoke-Pester . -Passthru).FailedCount
-  tags:
-   - windows
-
-#test_2:
+# TODO (requires Windows runner)
+#run_pester_tests:
 #  before_script:
+#    - Install-Module -Name Pester -Force
+#    - Install-Module -Name 7Zip4PowerShell -Force
 #    - Import-Module "Pester" -Force
-#    - Get-Module Pester | select name,version
+#    - Import-Module "7Zip4PowerShell" -Force
 #  stage: test
-#   script:
-#     - exit (Invoke-Pester .\tests\InputChecks -Passthru).FailedCount
-#   tags:
-#    - windows
+#  script:
+#    - Invoke-Pester -CI
+#  coverage: /Covered (\d+\.\d+%)/
+#  variables:
+#    POWERSHELL_TELEMETRY_OPTOUT: 1
+#  tags:
+#   - windows
 
-# test_3:
-#   before_script:
-#     - Import-Module "Pester" -Force
-#     - Get-Module Pester | select name,version
-#   stage: test
-#   script:
-#     - exit (Invoke-Pester .\tests\ExecutingScripts -Passthru).FailedCount
-#   tags:
-#    - windows
-
-create_installer:
-  stage: package
-  needs: ["run_pester_tests"]
-  trigger:
-    project: perun-windows/services-installer
-    strategy: depend
-  only:
-    - master
+# TODO
+#create_installer:
+#  stage: deploy
+#  trigger:
+#    project: perun-windows/services-installer
+#    strategy: depend
+#  only:
+#    - master
