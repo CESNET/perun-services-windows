@@ -1,5 +1,5 @@
 run_pester_tests:
-  image: $CI_DEPENDENCY_PROXY_DIRECT_GROUP_IMAGE_PREFIX/mcr.microsoft.com/powershell:lts-debian-11
+  image: mcr.microsoft.com/powershell:lts-debian-11
   before_script:
     - Import-Module "Pester" -Force
     - Get-Module Pester | select name,version
