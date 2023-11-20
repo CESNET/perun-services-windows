@@ -14,6 +14,18 @@
 #  tags:
 #   - windows
 
+# see https://www.benjaminrancourt.ca/lint-powershell-scripts-with-psscriptanalyzer/
+ps_script_analyzer:
+  stage: test
+  image: mcr.microsoft.com/powershell:lts-debian-11
+  before_script:
+    - pwsh -Command "Set-PSRepository -ErrorAction Stop -InstallationPolicy Trusted -Name PSGallery -Verbose"
+    - pwsh -Command "Install-Module -ErrorAction Stop -Name PSScriptAnalyzer -Verbose"
+  script:
+    - pwsh -Command "Invoke-ScriptAnalyzer -EnableExit -Recurse -Path . -Severity Error"
+  variables:
+    POWERSHELL_TELEMETRY_OPTOUT: 1
+
 # TODO
 #create_installer:
 #  stage: deploy
