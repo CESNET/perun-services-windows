@@ -18,6 +18,8 @@
 ps_script_analyzer:
   stage: test
   image: mcr.microsoft.com/powershell:lts-debian-11
+  tags:
+    - k8s
   before_script:
     - pwsh -Command "Set-PSRepository -ErrorAction Stop -InstallationPolicy Trusted -Name PSGallery -Verbose"
     - pwsh -Command "Install-Module -ErrorAction Stop -Name PSScriptAnalyzer -Verbose"
