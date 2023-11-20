@@ -18,13 +18,16 @@
 ps_script_analyzer:
   stage: test
   image: mcr.microsoft.com/powershell:lts-debian-11
+  tags:
+    - k8s
   before_script:
     - pwsh -Command "Set-PSRepository -ErrorAction Stop -InstallationPolicy Trusted -Name PSGallery -Verbose"
-    - pwsh -Command "Install-Module -ErrorAction Stop -Name PSScriptAnalyzer -Verbose"
+    - pwsh -Command "Install-Module -ErrorAction Stop -Name PSScriptAnalyzer -Verbose -Repository PSGallery -Force"
   script:
     - pwsh -Command "Invoke-ScriptAnalyzer -EnableExit -Recurse -Path . -Severity Error"
   variables:
     POWERSHELL_TELEMETRY_OPTOUT: 1
+    PSModulePath: /tmp/Modules
 
 # TODO
 #create_installer:
