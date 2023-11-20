@@ -21,8 +21,8 @@ ps_script_analyzer:
   tags:
     - k8s
   before_script:
-    - pwsh -Command "Set-PSRepository -ErrorAction Stop -InstallationPolicy Trusted -Name PSGallery -Verbose -Force"
-    - pwsh -Command "Install-Module -ErrorAction Stop -Name PSScriptAnalyzer -Verbose -Force"
+    - pwsh -Command "Set-PSRepository -ErrorAction Stop -InstallationPolicy Trusted -Name PSGallery -Verbose"
+    - pwsh -Command "Install-Module -ErrorAction Stop -Name PSScriptAnalyzer -Verbose -Repository PSGallery"
   script:
     - pwsh -Command "Invoke-ScriptAnalyzer -EnableExit -Recurse -Path . -Severity Error"
   variables:
