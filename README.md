@@ -4,10 +4,14 @@
 
 This repository contains scripts, which are used by [Perun](https://perun.cesnet.cz/web/) for provisioning and de-provisioning users to your services running Windows (managing access rights to them). Perun can manage any service, which has either accessible API or has accessible config files. We will be happy to help you with writing your own scripts for managing your service.
 
+### Repository information
+
+-   All development takes place in [public repository](https://gitlab.ics.muni.cz/perun/perun-idm/perun-services-windows) on our self-hosted GitLab instance. This repository is mirrored on [GitHub](https://github.com/CESNET/perun-services-windows) for visibility.
+
 ### Related projects ###
 
-* [Perun](https://github.com/CESNET/perun) - main Perun repository
-* [Perun WUI](https://github.com/zlamalp/perun-wui) - next-gen web user interface for Perun
+* [Perun](https://gitlab.ics.muni.cz/perun/perun-idm/perun) - main Perun repository
+* [Perun WUI](https://gitlab.ics.muni.cz/perun/perun-idm/perun-wui) - next-gen web user interface for Perun
 * [Google Group connector](https://github.com/CESNET/google-group-connector) - allow provisioning of Google groups on your domain
 
 ### Sources structure ###
